@@ -1,6 +1,7 @@
 #include "http.h"
 #include "signal.h"
 #include "threadpool.h"
+#include <sys/epoll.h>
 
 
 //#define _RELEASE   // 如果是正式版release,请把__RELEASE f反注释掉
@@ -48,6 +49,16 @@ int main(int argc, char **argv) {
   dbg_printf("listenfd = %d !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! \n",listenfd);
 
   static int count = 1;
+
+  // TODO: epoll的实现
+
+  //声明epoll_event结构体的变量,ev用于注册事件,数组用于回传要处理的事件
+  struct epoll_event ev, events[20];
+  int epfd = epoll_create(256);
+
+  // TODO: 把socket 设置为非阻塞的模式,添加注册头文件
+
+  setnonblocking(listenfd);
   // 主循环处理到来的fd
   while (1) {
     clientlen = sizeof(clientaddr);

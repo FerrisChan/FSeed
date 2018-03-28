@@ -6,7 +6,8 @@
  
  - download 好 zip 包
  - make,程序自动运行在8888 端口
- - 浏览器输入http://localhost:8888/home.html文件
+ - 浏览器输入http://localhost:8888/home.html
+ 
  
  然后就可以看到结果了
  

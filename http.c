@@ -1,4 +1,5 @@
 #include "http.h"
+#include "rio.h"
 #include <string.h>
 /*
 * socket 封装函数,返回成功描述符fd
@@ -42,6 +43,36 @@ void error_die(const char *sc)
 {
     perror(sc);
     exit(1);
+}
+
+void setreuseaddr(int sock)
+{
+
+    int opt;
+    opt = 1;
+    if (setsockopt(sock,SOL_SOCKET,SO_REUSEADDR,&opt,sizeof(&opt)) < 0)
+    {
+        perror("error: setsockopt setreuseaddr has error");
+        exit(1);
+    }
+}
+
+/* 设置socket 非阻塞IO*/
+void setnonblocking(int sock)
+{
+    int opts;
+    opts=fcntl(sock,F_GETFL);
+    if(opts == -1)
+    {
+        perror("fcntl(sock,GETFL)");
+        exit(1);
+    }
+    opts = opts|O_NONBLOCK;
+    if(fcntl(sock,F_SETFL,opts)<0)
+    {
+        perror(" error: fcntl(sock,SETFL,opts) setnonblocking has failed");
+        exit(1);
+    }
 }
 
 /* 存储器映射封装 */
@@ -99,8 +130,10 @@ int Open_listenfd(char *port)
     if (!p)
         return -1;
 
-    if (listen(listenfd, LISTENQ) < 0)
+    if (listen(listenfd, LISTENQ) < 0){
+         error_die("listen fd error");
         return -1;
+    }
 
     return listenfd;
 }
@@ -113,7 +146,7 @@ int Accept(int s, struct sockaddr *addr, socklen_t *addrlen)
     int rc;
 
     if ((rc = accept(s, addr, addrlen)) < 0)
-        error_die("Accept error");
+        error_die("Accept error ");
 
     return rc;
 }

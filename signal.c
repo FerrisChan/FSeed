@@ -1,9 +1,11 @@
 #include "signal.h"
 
 /**
- * Linux信号的封装
- * 见CSAPP chap8信号部分
-*/
+* Linux信号的封装
+* 见CSAPP chap8信号部分
+* 这里忽略SIGPIPE 信号
+* SIGPIPE 为向一个没有读用户的管道做写操作
+  */
 handler_t *Signal(int signum, handler_t *handler)
 {
     struct sigaction action, old_action;

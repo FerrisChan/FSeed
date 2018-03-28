@@ -4,8 +4,9 @@
 #include <errno.h>
 #include <unistd.h>
 
-
-
+/*  设置socket 为IO端口可重用
+ *  消除bind时"Address already in use"错误
+ */
 
 /*
     * rio.h 的核心

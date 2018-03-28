@@ -13,6 +13,8 @@ set(SOURCE_FILES
         signal.c
         signal.h
         main.c
+        threadpool.c
+        threadpool.h
         )
 
 add_executable(FSeedCB ${SOURCE_FILES})

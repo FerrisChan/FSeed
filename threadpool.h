@@ -9,7 +9,8 @@
 typedef struct {
     int connfd;     // 该线程的connfd
     int count;      // 线程的序号
-} thread_conn_args;
+    int status;     // 线程的状态
+} threadpool;
 
 // TODO: 实现线程池
 

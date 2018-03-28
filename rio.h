@@ -1,8 +1,8 @@
 #ifndef RIO_H_INCLUDED
 #define RIO_H_INCLUDED
 
-#include <sys/types.h>
 #include <stdio.h>
+#include <sys/types.h>
 
 #define RIO_BUFSIZE (8192)
 
@@ -26,6 +26,7 @@ ssize_t rio_readlineb(rio_t *rp, void *usrbuf, size_t maxlen);
     * 失败返回-1
 */
 ssize_t rio_writen(int fd, void *usrbuf, size_t n);
+
 
 
 #endif // RIO_H_INCLUDED
